@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+	
+	<head>
+		<title>Test JSData</title>
+		<!-- JQuery dependency -->
+		<script src="js/jquery.js"></script>
+		<script src="js/JSData-core.js"></script>
+		
+		<!-- test js -->
+		<script>
+		$(document).ready(function(){
+			
+			$("#pizzaPie").pie();
+			$("#otherPie").pie();
+		});
+		</script>
+	</head>
+	<body>
+		<div class="data-pie" id="pizzaPie" name="Favorite Pizza Types" 
+				data-pie-show-text="true"
+				style="width:300px; height:300px;">
+			<span class="data-point" style="color:#54A0D3;" name="Pepperoni" data-val="10"></span>
+			<span class="data-point" style="color:#D3F000;"  name="Cheese" data-val="5"></span>
+			<span class="data-point" style="color:#FF0099;"  name="Pineapple" data-val="7"></span>
+		</div>
+		
+		<div class="data-pie" id="otherPie" name="My Graph" 
+				data-pie-show-text="false"
+				data-pie-hover-sticky="true"
+				style="width:300px; height:300px;">
+			<span class="data-point" style="color:#F0F000;" name="0" data-val="100"></span>
+			<span class="data-point" style="color:#aa123d;"  name="1" data-val="27"></span>
+			<span class="data-point" style="color:#17acef;"  name="2" data-val="271"></span>
+		</div>
+	
+	</body>
+	
+</html>
