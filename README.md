@@ -17,11 +17,11 @@ $("#myPieDiv").pie();
 </tr>
 
 <tr>
-<td>data-pie-show-text</td><td>Show Text on hover</td><td>true or false></td><td>true</td>
+<td>data-pie-show-text</td><td>Show Text on hover</td><td>true or false</td><td>true</td>
 </tr>
 
 <tr>
-<td>data-pie-hover-sticky</td><td>Keep the segment hovered even after exit</td><td>true or false></td><td>false</td>
+<td>data-pie-hover-sticky</td><td>Keep the segment hovered even after exit</td><td>true or false</td><td>false</td>
 </tr>
 
 </table>

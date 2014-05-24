@@ -15,10 +15,8 @@
 		element.prepend("<canvas class='data-pie-canvas' width='"+element.width()+"' height='"+element.height()+"'></canvas>");
 		
 		//Time to do some defaulting
-		if(!element.attr("data-pie-show-text"))
-			element.attr("data-pie-show-text","true");
-		if(!element.attr("data-pie-hover-sticky"))
-			element.attr("data-pie-hover-sticky","false");
+		if(!element.attr("data-pie-show-text"))    element.attr("data-pie-show-text","true");
+		if(!element.attr("data-pie-hover-sticky")) element.attr("data-pie-hover-sticky","false");
 		
 		var radiusFactor = 3; //just used instead of a hard-coded number so you can edit (shouldn't be any less than 2 though)
 		var radiusHoverEnlarge = 4;
@@ -66,7 +64,7 @@
 				if(fi < 0) fi += Math.PI * 2;
 				//Flip it so that it is counter clockwise
 				fi = -(fi - Math.PI * 2);
-				if(fi <= angleTo){
+				if(fi <= angleTo && fi >= curAngle){
 					element.attr("data-hovered",p);
 					return;
 				}
