@@ -9,8 +9,19 @@ Initialization:
 ```javascript
 $("#myPieDiv").pie();
 ```
-Data Attributes:
-| Name                  | Purpose                                  | Input Options | Default     |
-| --------------------- |:----------------------------------------:|:-------------:|:----------- |
-| data-pie-show-text    | Show text on hover                       | true or false | true        |
-| data-pie-hover-sticky | Keep the segment hovered even after exit | true or false | false       |
+
+####Data Attributes:
+<table>
+<tr>
+<th>Name</th><th>Purpose</th><th>Input Options</th><th>Default</th>
+</tr>
+
+<tr>
+<td>data-pie-show-text</td><td>Show Text on hover</td><td>true or false></td><td>true</td>
+</tr>
+
+<tr>
+<td>data-pie-hover-sticky</td><td>Keep the segment hovered even after exit</td><td>true or false></td><td>false</td>
+</tr>
+
+</table>
