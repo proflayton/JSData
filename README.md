@@ -1,6 +1,8 @@
 JSData
 ======
 
+
+
 Web Interactive Data Visualization using jQuery, Javascript, and HTML5.
 
 #Classes
@@ -25,3 +27,22 @@ $("#myPieDiv").pie();
 </tr>
 
 </table>
+
+#Functions
+
+##bindDataPoint(element)
+
+####Purpose:
+Binds the object's data-val attribute to the element's value
+####Example:
+    $("#testPoint").bindDataPoint($("#bindBox"));
+
+
+##bindDataPoint(eventData,element)
+
+####Purpose:
+Binds the object's data-val attribute to the element's value that updates on eventData
+####Example:
+	$("#secondTest").bindDataPoint("keyup",$("#bindBox2"));
+
+
