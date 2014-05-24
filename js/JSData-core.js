@@ -60,12 +60,11 @@
 					theta	= Math.PI*2*perc,
 					angleTo = curAngle + theta;
 				
-				var fi = Math.atan2(dY,dX);
-				if(fi < 0) fi += Math.PI * 2;
-				//Flip it so that it is counter clockwise
-				fi = -(fi - Math.PI * 2);
+				var fi = Math.atan2(dY,dX);//angle of our vector relative to the x-axis
+				if(fi < 0) fi += Math.PI * 2;//shift everything into the domain where 2pi>x>0
+				fi = -(fi - Math.PI * 2);//Flip it so that it is counter clockwise (normal it's CW)
 				if(fi <= angleTo && fi >= curAngle){
-					element.attr("data-hovered",p);
+					element.attr("data-hovered",p);//set our data
 					return;
 				}
 				
@@ -87,7 +86,12 @@
 			var hoveredAngleStart = -1, hoveredAngleEnd = -1;
 			var hoveredIndex = parseInt(god.attr("data-hovered"),10);
 			
+			//Context initializing
 			piec.imageSmoothingEnabled = true;
+			piec.lineCap     = "round";
+			piec.strokeStyle = "#222";
+			piec.lineWidth   = 2;
+			piec.clearRect(0,0,w,h); //clear canvas
 			
 			//grab the data points
 			god.find(".data-point").each(function(){
@@ -96,16 +100,15 @@
 				points.push(val);
 				colors.push($(this).css("color"));
 			});
-			piec.clearRect(0,0,w,h); //clear canvas
-			piec.strokeStyle = "#222";
-			piec.lineWidth = 2;
+
 			//plot the data points
 			for(var p in points){
 				piec.fillStyle = colors[p]; //set the color
-				piec.beginPath(); //start the path
 				
 				var perc = points[p]/total; //find the percentage
 				var angleTo = curAngle + Math.PI*2*perc; //find the angle we need to move to
+				
+				piec.beginPath(); //start the path
 				piec.moveTo(w/2,h/2); //move to the center of the circle
 				piec.arc(w/2,h/2,r,curAngle,angleTo); //arc the path from the angle we are at to the angle we need to be
 				piec.fill(); //fill the path
@@ -114,8 +117,7 @@
 					hoveredAngleEnd   = angleTo;
 				}
 				piec.lineTo(w/2,h/2);
-				piec.stroke();
-				
+				piec.stroke();//stroke the arc as well as fill it
 				
 				curAngle = angleTo; //shift over our current angle
 			}
@@ -130,8 +132,6 @@
 				piec.lineTo(w/2,h/2);
 				piec.fill();
 				
-				piec.strokeStyle = "#222";
-				piec.lineWidth = 3;
 				piec.stroke();
 				
 				if(god.attr("data-pie-show-text") != "false")
@@ -139,13 +139,14 @@
 					//Text
 					piec.font = "14px Arial Bold";
 					piec.fillStyle = "#111";
+					var text = points[hoveredIndex] + " (" + parseFloat(perc*100).toFixed(2) + "%)";
+					var textSize = piec.measureText(text);
 					//the middle + the mid way point between the angles, then compensate for the text's size
 					//the r/2 brings the text closer to the middle of the circle
-					var textX = w/2 + (r/2)*Math.cos(hoveredAngleStart + (hoveredAngleEnd - hoveredAngleStart)/2) - 30,
-						textY = h/2 + (r/2)*Math.sin(hoveredAngleStart + (hoveredAngleEnd - hoveredAngleStart)/2) + 16;
-					piec.fillText(points[hoveredIndex] + " (" + parseFloat(perc*100).toFixed(2) + "%)", 
-						 textX,
-						 textY);
+					var textX = w/2 + (r/2)*Math.cos(hoveredAngleStart + (hoveredAngleEnd - hoveredAngleStart)/2) - textSize.width/2,
+						textY = h/2 + (r/2)*Math.sin(hoveredAngleStart + (hoveredAngleEnd - hoveredAngleStart)/2) + 20;
+					console.log(textX + "," + textY);
+					piec.fillText(text, textX, textY);
 				}
 			}
 		};
