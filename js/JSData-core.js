@@ -272,13 +272,11 @@
 			var w = god.width(),
 				h = god.height();
 
-			self.offsetX = self.minX;
-			self.offsetY = self.minY;
+			self.offsetX = self.minX - 0.075;
+			self.offsetY = self.minY - 0.075;
 
-			self.unitsPerX = (self.maxX - self.minX)/w;
-			self.unitsPerY = (self.maxY - self.minY)/h;
-
-			console.log(self.unitsPerX + "," + self.unitsPerY);
+			self.unitsPerX = (self.maxX - self.minX)/(w-15); //just a bit of buffer so we aren't ontop
+			self.unitsPerY = (self.maxY - self.minY)/(h-15); //of the border
 		};
 		this.Draw = function(){
 			self.update();
