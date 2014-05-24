@@ -13,6 +13,8 @@
 			
 			$("#pizzaPie").pie();
 			$("#otherPie").pie();
+			$("#testPoint").bindDataPoint($("#bindBox"));
+			$("#secondTest").bindDataPoint("keyup",$("#bindBox2"));
 		});
 		</script>
 	</head>
@@ -20,7 +22,7 @@
 		<div class="data-pie" id="pizzaPie" name="Favorite Pizza Types" 
 				data-pie-show-text="true"
 				style="width:300px; height:300px;">
-			<span class="data-point" style="color:#54A0D3;" name="Pepperoni" data-val="10"></span>
+			<span class="data-point" style="color:#54A0D3;"  name="Pepperoni" data-val="10"></span>
 			<span class="data-point" style="color:#D3F000;"  name="Cheese" data-val="5"></span>
 			<span class="data-point" style="color:#FF0099;"  name="Pineapple" data-val="7"></span>
 		</div>
@@ -29,11 +31,14 @@
 				data-pie-show-text="false"
 				data-pie-hover-sticky="true"
 				style="width:300px; height:300px;">
-			<span class="data-point" style="color:#F0F000;" name="0" data-val="100"></span>
-			<span class="data-point" style="color:#aa123d;"  name="1" data-val="27"></span>
+			<span id="testPoint" class="data-point" style="color:#F0F000;"  name="0" data-val="100"></span>
+			<span id="secondTest"class="data-point" style="color:#aa123d;"  name="1" data-val="27"></span>
 			<span class="data-point" style="color:#17acef;"  name="2" data-val="271"></span>
 		</div>
 	
+
+		<input type="text" id="bindBox" />
+		<input type="text" id="bindBox2" />
 	</body>
 	
 </html>

@@ -8,7 +8,7 @@
 //non-conflict
 (function($){
 	
-	this.Pies = [];
+	this.Data = []
 	
 	function Pie(ele){
 		var element = ele;
@@ -95,7 +95,7 @@
 			
 			//grab the data points
 			god.find(".data-point").each(function(){
-				var val = parseInt($(this).attr("data-val"),10);
+				var val = parseFloat($(this).attr("data-val"),10);
 				total += val;
 				points.push(val);
 				colors.push($(this).css("color"));
@@ -145,19 +145,92 @@
 					//the r/2 brings the text closer to the middle of the circle
 					var textX = w/2 + (r/2)*Math.cos(hoveredAngleStart + (hoveredAngleEnd - hoveredAngleStart)/2) - textSize.width/2,
 						textY = h/2 + (r/2)*Math.sin(hoveredAngleStart + (hoveredAngleEnd - hoveredAngleStart)/2) + 20;
-					console.log(textX + "," + textY);
 					piec.fillText(text, textX, textY);
 				}
 			}
 		};
 		
-		Draw(); //initially draw the pie graph
+		Draw(); //initially draw the graph
 		UpdateInterval = setInterval(Draw, 25);
 	};
-	//Override function to create the pie initializer
+
+	//SCATTER GRAPH
+	function ScatterGraph(ele){
+		var element = ele;
+		element.prepend("<canvas class='data-scattergraph-canvas' width='"+element.width()+"'"+
+			" height='"+element.height()+"'></canvas>");
+
+		//Variable initializations
+		var pointSize = 2;//the diameter of each point
+		var pointHoverEnlargeFactor = 2; //2x the size when hovered
+		var zoomScaleX = 1.0, //variables for controlling the drawing of the graph
+			zoomScaleY = 1.0,
+			offsetX    = 0,
+			offsetY    = 0;
+
+		function Draw(){
+			var god = element;
+			var graph = god.find(".data-scattergraph-canvas");
+			var cntxt = graph.get(0).getContext("2d");
+			var data = [];
+			var minX = null, maxX = null,
+				minY = null, maxY = null;
+
+			//Context initialization
+			cntxt.font = "10pt Arial";
+
+			//Get Data
+			god.find(".data-point").each(function(){
+				var valX = parseFloat($(this).attr("data-valx"),10);
+				var valY = parseFloat($(this).attr("data-valy"),10);
+				//Initialize the min and max or set the new one
+				if(minX == null || valX < minX) minX = valX;
+				if(maxX == null || valX > maxX) maxX = valX;
+				if(minY == null || valY < minY) minY = valY;
+				if(maxY == null || valY > maxY) maxY = valY;
+				data.push([valX,valY]);
+			});
+
+			//the inbetween point of the min and max, then the zoom scale
+			var midX = (1/zoomScaleX)*(minX+maxX)/2;
+			var midY = (1/zoomScaleY)*(minY+maxY)/2;
+
+			cntxt.beginPath();
+		}
+
+
+		Draw(); //initially draw the graph
+		UpdateInterval = setInterval(Draw, 25);
+	};
+
+	//function to create the pie initializer in jQuery
 	$.fn.pie = function(){
-		Pies.push(new Pie(this));
+		Data.push(new Pie(this));
 		return this;//must return the object so it can have chained functions
 	};
+	//function to create the scatter graph initializer in jQuery
+	$.fn.scattergraph = function(){
+		Data.push(new ScatterGraph(this));
+		return this;
+	};
 	
+	//This function binds the data-point to the otherElement's val
+	//bindDataPoint(element)
+	//bindDataPoint(eventData, element)
+	$.fn.bindDataPoint = function(){
+		if(arguments.length == 0) return; //no default function
+
+		var god = $(this);
+		var handler = function(){
+				var val = $(this).val();
+				if(!val) val = 0;
+				god.attr("data-val",val);
+			};
+			
+		var element   = arguments.length == 1 ? arguments[0] : arguments[1];
+		var eventData = arguments.length == 1 ? "change" : arguments[0];
+
+		element.on(eventData,handler);
+
+	};
 }(jQuery));
