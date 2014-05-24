@@ -3,6 +3,7 @@
 	
 	<head>
 		<title>Test JSData</title>
+		<link rel="stylesheet" href="css/JSData-style.css" type="text/css" />
 		<!-- JQuery dependency -->
 		<script src="js/jquery.js"></script>
 		<script src="js/JSData-core.js"></script>
@@ -15,30 +16,53 @@
 			$("#otherPie").pie();
 			$("#testPoint").bindDataPoint($("#bindBox"));
 			$("#secondTest").bindDataPoint("keyup",$("#bindBox2"));
+
+			$("#pointsEverywhere").scattergraph().fit();
 		});
 		</script>
 	</head>
 	<body>
-		<div class="data-pie" id="pizzaPie" name="Favorite Pizza Types" 
-				data-pie-show-text="true"
-				style="width:300px; height:300px;">
-			<span class="data-point" style="color:#54A0D3;"  name="Pepperoni" data-val="10"></span>
-			<span class="data-point" style="color:#D3F000;"  name="Cheese" data-val="5"></span>
-			<span class="data-point" style="color:#FF0099;"  name="Pineapple" data-val="7"></span>
-		</div>
-		
-		<div class="data-pie" id="otherPie" name="My Graph" 
-				data-pie-show-text="false"
-				data-pie-hover-sticky="true"
-				style="width:300px; height:300px;">
-			<span id="testPoint" class="data-point" style="color:#F0F000;"  name="0" data-val="100"></span>
-			<span id="secondTest"class="data-point" style="color:#aa123d;"  name="1" data-val="27"></span>
-			<span class="data-point" style="color:#17acef;"  name="2" data-val="271"></span>
-		</div>
-	
-
-		<input type="text" id="bindBox" />
-		<input type="text" id="bindBox2" />
+		<table>
+			<tr>
+				<td>
+					<div class="data-pie" id="pizzaPie" name="Favorite Pizza Types" 
+						data-pie-show-text="true"
+						style="width:300px; height:300px;">
+						<span class="data-point" style="color:#54A0D3;"  name="Pepperoni" data-val="10"></span>
+						<span class="data-point" style="color:#D3F000;"  name="Cheese" data-val="5"></span>
+						<span class="data-point" style="color:#FF0099;"  name="Pineapple" data-val="7"></span>
+					</div>
+				</td>
+				<td>
+					<div class="data-pie" id="otherPie" name="My Graph" 
+						data-pie-show-text="false"
+						data-pie-hover-sticky="true"
+						style="width:300px; height:300px;">
+						<span id="testPoint" class="data-point" style="color:#F0F000;"  name="0" data-val="100"></span>
+						<span id="secondTest"class="data-point" style="color:#aa123d;"  name="1" data-val="27"></span>
+						<span class="data-point" style="color:#17acef;"  name="2" data-val="271"></span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="text" id="bindBox" /><input type="text" id="bindBox2" /></td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<td>
+				<div class="data-scattergraph" id="pointsEverywhere" name="Crazy points"
+					style="width:600px;height:500px;">
+					<span class="data-point" style="color: #FF0000" data-val="-1,-1"></span>
+					<span class="data-point" style="color: #FF0000" data-val="1,1"></span>
+					<span class="data-point" style="color: #FF0000" data-val="2,2"></span>
+					<span class="data-point" style="color: #FF0000" data-val="3,3"></span>
+					<span class="data-point" style="color: #FF0000" data-val="4,4"></span>
+				</div>
+				</td>
+			</tr>
+		</table>
 	</body>
 	
 </html>
