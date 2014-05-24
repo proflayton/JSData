@@ -224,7 +224,6 @@
 		this.handlemouseup = function(event){ self.clickedData = -1;}
 		this.handlemousemove = function(event){
 			if(self.clickedData == -1) return; //If nothing clicked
-			console.log(self.clickedData);
 			var god = self.element;
 			var o = getOffset(self.element);
 			var x = event.pageX - o.x,
