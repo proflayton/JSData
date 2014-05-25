@@ -21,6 +21,22 @@
 	    y += parseInt(e.css("border-top-width"));
 	    return { x: x, y: y };
 	}
+	//Simple function that draws a line on the c context from s to e
+	//s and e are arrays with x and y coordinates
+	function strokeLine(c,s,e){
+		c.beginPath();
+		c.moveTo(s[0],s[1]);
+		c.lineTo(e[0],e[1]);
+		c.stroke();
+	}
+	//checks to see if element is already a Data Object
+	function isInDataArray(element){
+		for(var d in Data){
+			if(Data[d].element == this) //find the corresponding Data object
+				return true;
+		}
+		return false;
+	}
 	
 	function Pie(ele){
 		var element = ele;
@@ -175,6 +191,10 @@
 		this.element.prepend("<canvas class='data-scattergraph-canvas' width='"+this.element.width()+"'"+
 			" height='"+this.element.height()+"'></canvas>");
 
+		if(!this.element.attr("data-graph-ticks")) this.element.attr("data-graph-ticks","true");
+		if(!this.element.attr("data-graph-tickIncrement")) this.element.attr("data-graph-tickIncrement","5");
+		if(!this.element.attr("data-graph-snapping")) this.element.attr("data-graph-snapping","false");
+
 		//Variable initializations
 		this.pointSize = 10;//the diameter of each point
 		this.pointHoverEnlargeFactor = 2; //2x the size when hovered
@@ -233,7 +253,6 @@
 			//actual values on graph
 			var aX = self.unitsPerX * x     + self.offsetX,
 				aY = self.unitsPerY * (h-y) + self.offsetY;
-
 			var i = 0;
 			god.find(".data-point").each(function(){
 				if(i == self.clickedData){
@@ -296,18 +315,12 @@
 			cntxt.lineWidth   = 2;
 			cntxt.clearRect(0,0,w,h); //clear canvas
 
-			//the inbetween point of the min and max, then the zoom scale
+			//actual offset
 			var xO = self.offsetX * (1/self.unitsPerX),
 				yO = self.offsetY * (1/self.unitsPerY);
 			//console.log(unitsPerX+","+unitsPerY);
 			var y = h + yO;
 			var x = -xO;
-			cntxt.beginPath();
-			cntxt.moveTo(x,0); cntxt.lineTo(x,h);
-			cntxt.stroke();
-			cntxt.beginPath();
-			cntxt.moveTo(0,y); cntxt.lineTo(w,y);
-			cntxt.stroke();
 
 			for(var i in self.dataPoints){
 				var p = self.dataPoints[i];
@@ -316,6 +329,23 @@
 				cntxt.beginPath();
 				cntxt.arc(x + p[0]*(1/self.unitsPerX), y - p[1]*(1/self.unitsPerY),r,0,Math.PI*2);
 				cntxt.fill();
+			}
+			//Lines
+			strokeLine(cntxt,[x,0],[x,h]);
+			strokeLine(cntxt,[0,y],[w,y]);
+			//Ticks
+			if(self.element.attr("data-graph-ticks")=="true"){
+				var inc = parseFloat(self.element.attr("data-graph-tickIncrement"),10);
+				var xInc = (1/self.unitsPerX) * inc,
+					yInc = (1/self.unitsPerY) * inc;
+				var cX = x, cY = y;
+				while(cX < w){ cX+=xInc; strokeLine(cntxt,[cX,y-2],[cX,y+2]); }
+				cX = x;
+				while(cX > 0){cX-=xInc; strokeLine(cntxt,[cX,y-2],[cX,y+2]); }
+
+				while(cY < h){cY+=yInc; strokeLine(cntxt,[x-2,cY],[x+2,cY]); }
+				cY = y;
+				while(cY > 0){cY-=yInc; strokeLine(cntxt,[x-2,cY],[x+2,cY]); }
 			}
 		};
 
@@ -327,11 +357,21 @@
 
 	//function to create the pie initializer in jQuery
 	$.fn.pie = function(){
+		if(isInDataArray(this))
+		{
+			console.log(this + " is already in the Data Array");
+			return this;
+		}
 		Data.push(new Pie(this));
 		return this;//must return the object so it can have chained functions
 	};
 	//function to create the scatter graph initializer in jQuery
 	$.fn.scattergraph = function(){
+		if(isInDataArray(this))
+		{
+			console.log(this + " is already in the Data Array");
+			return this;
+		}
 		Data.push(new ScatterGraph(this));
 		return this;
 	};

@@ -20,6 +20,7 @@
 					rY = (nY?-1:1)*Math.floor(Math.random() * 7)+1;
 				$("#pointsEverywhere").addDataPoint(rX + "," + rY, "#"+random.toString(16));
 			}
+
 			$("#pizzaPie").pie();
 			$("#otherPie").pie();
 			$("#testPoint").bindDataPoint($("#bindBox"));
@@ -61,6 +62,8 @@
 			<tr>
 				<td>
 				<div class="data-scattergraph" id="pointsEverywhere" name="Crazy points"
+					data-graph-ticks="true"
+					data-graph-tickIncrement="2"
 					style="width:600px;height:500px;">
 					
 				</div>
