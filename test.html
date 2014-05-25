@@ -11,7 +11,19 @@
 		<!-- test js -->
 		<script>
 		$(document).ready(function(){
-			
+			//Create some random points with some random numbers
+			for(var i = 0; i < 5; i++){
+				var random = Math.floor(Math.random() * 14548991) + 1;
+				var nX = Math.random()>0.5,
+					nY = Math.random()>0.5;
+				console.log(nX + "," + nY);
+				var rX = (nX?-1:1)*Math.floor(Math.random() * 7)+1,
+					rY = (nY?-1:1)*Math.floor(Math.random() * 7)+1;
+				$("#pointsEverywhere").append(
+					"<span class=\"data-point\" style=\"color: #" + random.toString(16) + "\""+
+					" data-val=\""+ rX + "," + rY + "\"></span>"
+					);
+			}
 			$("#pizzaPie").pie();
 			$("#otherPie").pie();
 			$("#testPoint").bindDataPoint($("#bindBox"));
@@ -54,11 +66,7 @@
 				<td>
 				<div class="data-scattergraph" id="pointsEverywhere" name="Crazy points"
 					style="width:600px;height:500px;">
-					<span class="data-point" style="color: #FF0000" data-val="-1,-1"></span>
-					<span class="data-point" style="color: #FF0000" data-val="1,1"></span>
-					<span class="data-point" style="color: #FF0000" data-val="2,2"></span>
-					<span class="data-point" style="color: #FF0000" data-val="3,3"></span>
-					<span class="data-point" style="color: #FF0000" data-val="4,4"></span>
+					
 				</div>
 				</td>
 			</tr>
