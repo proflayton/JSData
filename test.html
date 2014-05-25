@@ -12,7 +12,7 @@
 		<script>
 		$(document).ready(function(){
 			//Create some random points with some random numbers
-			for(var i = 0; i < 5; i++){
+			for(var i = 0; i < 10; i++){
 				var random = Math.floor(Math.random() * 14548991) + 1;
 				var nX = Math.random()>0.5,
 					nY = Math.random()>0.5;
@@ -64,6 +64,7 @@
 				<div class="data-scattergraph" id="pointsEverywhere" name="Crazy points"
 					data-graph-ticks="true"
 					data-graph-tickIncrement="2"
+					data-graph-snapping="true"
 					style="width:600px;height:500px;">
 					
 				</div>

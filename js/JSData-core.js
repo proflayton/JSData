@@ -37,6 +37,10 @@
 		}
 		return false;
 	}
+
+	Math.clamp = function(a,b,c){
+		return Math.max(b,Math.min(c,a));
+	}
 	
 	function Pie(ele){
 		var element = ele;
@@ -215,7 +219,31 @@
 		this.element.mousemove(function(event){ self.handlemousemove(event); });
 		this.element.mousedown(function(event){ self.handlemousedown(event); });
 		this.element.mouseup(  function(event){ self.handlemouseup(event);   });
+		this.element.bind('mousewheel DOMMouseScroll', function(event){ self.handlemousewheel(event); });
 
+		//Alt key speeds up the scrolling/zooming
+		this.handlemousewheel = function(event){
+			var damp = event.altKey ? 20 : 100
+			var accelY = (event.originalEvent.deltaY)/damp,
+			 	accelX = (event.originalEvent.deltaX)/damp;	
+			
+			if(event.ctrlKey){//Zoom
+
+				var inc  = 100/parseFloat(self.element.attr("data-graph-tickIncrement"));
+				console.log(this.unitsPerX + "|" + this.unitsPerY);
+				this.unitsPerX += accelX*0.01;
+				this.unitsPerY += accelY*0.01;
+				this.unitsPerX = Math.clamp(this.unitsPerX,0,2);
+				this.unitsPerY = Math.clamp(this.unitsPerY,0,2);
+			}	
+			//Even if we are zooming, this makes the graph stay more in the middle
+			//It's flipped because of Delta
+			self.offsetX -= accelX;
+			self.offsetY -= accelY;
+			
+			//Make it so the page doesn't scroll as well
+			event.preventDefault();
+		};
 		this.handlemousedown = function(event){
 			var god = self.element;
 			var o = getOffset(self.element);
@@ -253,6 +281,10 @@
 			//actual values on graph
 			var aX = self.unitsPerX * x     + self.offsetX,
 				aY = self.unitsPerY * (h-y) + self.offsetY;
+			if(self.element.attr("data-graph-snapping") == "true"){
+				aX = Math.round(aX);
+				aY = Math.round(aY);
+			}
 			var i = 0;
 			god.find(".data-point").each(function(){
 				if(i == self.clickedData){
