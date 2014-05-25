@@ -3,3 +3,7 @@
 	border: 5px #444 solid;
 	background: #EFEFEF;
 }
+
+canvas {
+	cursor: default;
+}
