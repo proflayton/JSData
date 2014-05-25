@@ -16,13 +16,9 @@
 				var random = Math.floor(Math.random() * 14548991) + 1;
 				var nX = Math.random()>0.5,
 					nY = Math.random()>0.5;
-				console.log(nX + "," + nY);
 				var rX = (nX?-1:1)*Math.floor(Math.random() * 7)+1,
 					rY = (nY?-1:1)*Math.floor(Math.random() * 7)+1;
-				$("#pointsEverywhere").append(
-					"<span class=\"data-point\" style=\"color: #" + random.toString(16) + "\""+
-					" data-val=\""+ rX + "," + rY + "\"></span>"
-					);
+				$("#pointsEverywhere").addDataPoint(rX + "," + rY, "#"+random.toString(16));
 			}
 			$("#pizzaPie").pie();
 			$("#otherPie").pie();

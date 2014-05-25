@@ -360,7 +360,7 @@
 	//bindDataPoint(element)
 	//bindDataPoint(eventData, element)
 	$.fn.bindDataPoint = function(){
-		if(arguments.length == 0) return; //no default function
+		if(arguments.length == 0) return this; //no default function
 
 		var god = $(this);
 		var handler = function(){
@@ -374,5 +374,17 @@
 
 		element.on(eventData,handler);
 
+		return this;
 	};
+
+	$.fn.addDataPoint = function(){
+		if(arguments.length == 0) return this;
+		var value = arguments[0];
+		var color = arguments.length == 2 ? arguments[1] : "#DD0000";
+		$(this).append(
+			"<span class='data-point' style='color: " + color + "' "+
+			"data-val='" + value + "'></span>"
+			);
+		return this;
+	}
 }(jQuery));
