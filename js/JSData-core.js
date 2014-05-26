@@ -234,7 +234,6 @@
 			if(event.ctrlKey){//Zoom
 
 				var inc  = 100/parseFloat(self.element.attr("data-graph-tickIncrement"));
-				console.log(this.unitsPerX + "|" + this.unitsPerY);
 				this.unitsPerX += accelX*0.01;
 				this.unitsPerY += accelY*0.01;
 				this.unitsPerX = clamp(this.unitsPerX,0,2);
@@ -396,7 +395,6 @@
 	$.fn.pie = function(){
 		if(isInDataArray(this))
 		{
-			console.log(this + " is already in the Data Array");
 			return this;
 		}
 		Data.push(new Pie(this));
