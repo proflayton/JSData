@@ -37,9 +37,13 @@
 		}
 		return false;
 	}
-
-	Math.clamp = function(a,b,c){
+	//clamps a to min b and max c
+	function clamp(a,b,c){
 		return Math.max(b,Math.min(c,a));
+	}
+	//round a to the nearest n multiple
+	function round(a,n){
+		return Math.round(a/n)*n;
 	}
 	
 	function Pie(ele){
@@ -233,8 +237,8 @@
 				console.log(this.unitsPerX + "|" + this.unitsPerY);
 				this.unitsPerX += accelX*0.01;
 				this.unitsPerY += accelY*0.01;
-				this.unitsPerX = Math.clamp(this.unitsPerX,0,2);
-				this.unitsPerY = Math.clamp(this.unitsPerY,0,2);
+				this.unitsPerX = clamp(this.unitsPerX,0,2);
+				this.unitsPerY = clamp(this.unitsPerY,0,2);
 			}	
 			//Even if we are zooming, this makes the graph stay more in the middle
 			//It's flipped because of Delta
@@ -282,8 +286,9 @@
 			var aX = self.unitsPerX * x     + self.offsetX,
 				aY = self.unitsPerY * (h-y) + self.offsetY;
 			if(self.element.attr("data-graph-snapping") == "true"){
-				aX = Math.round(aX);
-				aY = Math.round(aY);
+				var snap = parseFloat(self.element.attr("data-graph-tickIncrement"));
+				aX = round(aX,snap);
+				aY = round(aY,snap);
 			}
 			var i = 0;
 			god.find(".data-point").each(function(){
