@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Jsdata : Interactive Data Visualization in jQuery, Javascript, and HTML5." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Jsdata</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/proflayton/JSData">View on GitHub</a>
+
+          <h1 id="project_title">Jsdata</h1>
+          <h2 id="project_tagline">Interactive Data Visualization in jQuery, Javascript, and HTML5.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/proflayton/JSData/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/proflayton/JSData/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="jsdata" class="anchor" href="#jsdata"><span class="octicon octicon-link"></span></a>JSData</h1>
+
+<p>Web Interactive Data Visualization using jQuery, Javascript, and HTML5.</p>
+
+<h1>
+<a name="global-rules" class="anchor" href="#global-rules"><span class="octicon octicon-link"></span></a>Global Rules</h1>
+
+<ul>
+<li> All Data objects must be initialized through their respective jQuery functions AFTER the document is ready (within the document.ready function like in the test.html file)</li>
+<li> All data-point's colors are determined by the "color" attribute in their CSS style </li>
+</ul><h1>
+<a name="classes" class="anchor" href="#classes"><span class="octicon octicon-link"></span></a>Classes</h1>
+
+<h2>
+<a name="data-pie" class="anchor" href="#data-pie"><span class="octicon octicon-link"></span></a>Data-Pie</h2>
+
+<p>Initialization:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"#myPieDiv"</span><span class="p">).</span><span class="nx">pie</span><span class="p">();</span>
+</pre></div>
+
+<h4>
+<a name="data-value-attribute-structure" class="anchor" href="#data-value-attribute-structure"><span class="octicon octicon-link"></span></a>Data Value Attribute Structure:</h4>
+
+<p><code>data-val="x"</code></p>
+
+<h5>
+<a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example:</h5>
+
+<pre><code>&lt;span class="data-point" data-val="5"&gt;&lt;/span&gt;
+&lt;span class="data-point" data-val="2.7"&gt;&lt;/span&gt;
+</code></pre>
+
+<h4>
+<a name="data-attributes" class="anchor" href="#data-attributes"><span class="octicon octicon-link"></span></a>Data Attributes:</h4>
+
+<table>
+<tr>
+<th>Name</th>
+<th>Purpose</th>
+<th>Input Options</th>
+<th>Default</th>
+</tr>
+<tr>
+<td>data-pie-show-text</td>
+<td>Show Text on hover</td>
+<td>true or false</td>
+<td>true</td>
+</tr>
+<tr>
+<td>data-pie-hover-sticky</td>
+<td>Keep the segment hovered even after exit</td>
+<td>true or false</td>
+<td>false</td>
+</tr>
+</table><h3>
+<a name="html-example" class="anchor" href="#html-example"><span class="octicon octicon-link"></span></a>HTML Example:</h3>
+
+<pre><code>&lt;div class="data-pie" id="myPieDiv" data-pie-show-text="true"
+    style="width:500px;500px;"&gt;&lt;/div&gt;
+</code></pre>
+
+<h2>
+<a name="data-scattergraph" class="anchor" href="#data-scattergraph"><span class="octicon octicon-link"></span></a>Data-ScatterGraph</h2>
+
+<p>Initialization:
+    javascript
+    $("#myScatterGraph").scattergraph();</p>
+
+<h4>
+<a name="data-value-attribute-structure-1" class="anchor" href="#data-value-attribute-structure-1"><span class="octicon octicon-link"></span></a>Data Value Attribute Structure:</h4>
+
+<pre><code>data-val="x,y"
+</code></pre>
+
+<h5>
+<a name="example-1" class="anchor" href="#example-1"><span class="octicon octicon-link"></span></a>Example:</h5>
+
+<pre><code>&lt;span class="data-point" data-val="2.5,3.7"&gt;&lt;/span&gt;
+</code></pre>
+
+<h3>
+<a name="data-attributes-1" class="anchor" href="#data-attributes-1"><span class="octicon octicon-link"></span></a>Data Attributes:</h3>
+
+<table><tr>
+<th>None</th>
+</tr></table><h3>
+<a name="html-example-1" class="anchor" href="#html-example-1"><span class="octicon octicon-link"></span></a>HTML Example:</h3>
+
+<pre><code>&lt;div class="data-scattergraph" id="myScatterGraph" 
+    style="width:500px;500px;"&gt;&lt;/div&gt;
+</code></pre>
+
+<h1>
+<a name="functions" class="anchor" href="#functions"><span class="octicon octicon-link"></span></a>Functions</h1>
+
+<h2>
+<a name="binddatapointelement" class="anchor" href="#binddatapointelement"><span class="octicon octicon-link"></span></a>bindDataPoint(element)</h2>
+
+<h4>
+<a name="purpose" class="anchor" href="#purpose"><span class="octicon octicon-link"></span></a>Purpose:</h4>
+
+<p>Binds the object's data-val attribute to the element's value</p>
+
+<h4>
+<a name="example-2" class="anchor" href="#example-2"><span class="octicon octicon-link"></span></a>Example:</h4>
+
+<pre><code>$("#testPoint").bindDataPoint($("#bindBox"));
+</code></pre>
+
+<h2>
+<a name="binddatapointeventdataelement" class="anchor" href="#binddatapointeventdataelement"><span class="octicon octicon-link"></span></a>bindDataPoint(eventData,element)</h2>
+
+<h4>
+<a name="purpose-1" class="anchor" href="#purpose-1"><span class="octicon octicon-link"></span></a>Purpose:</h4>
+
+<p>Binds the object's data-val attribute to the element's value that updates on eventData</p>
+
+<h4>
+<a name="example-3" class="anchor" href="#example-3"><span class="octicon octicon-link"></span></a>Example:</h4>
+
+<pre><code>$("#secondTest").bindDataPoint("keyup",$("#bindBox2"));
+</code></pre>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Jsdata maintained by <a href="https://github.com/proflayton">proflayton</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
